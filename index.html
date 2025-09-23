@@ -94,6 +94,12 @@
       margin-bottom: 1rem;
     }
 
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     .hero-buttons a {
       display: inline-block;
       background-color: #8B5E3C;
@@ -195,7 +201,6 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
-    /* Footer / Map */
     footer {
       background: #2c2a28;
       padding: 40px 20px;
@@ -212,7 +217,22 @@
     @media (max-width: 768px) {
       .hero-text h1 { font-size: 2.2rem; }
       .hero-text p { font-size: 1rem; }
-      .three-columns { flex-direction: column; }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .hero-buttons a {
+        margin: 0 !important;
+        width: 80%;
+        text-align: center;
+      }
+
+      .three-columns {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -226,10 +246,10 @@
           <div class="slide-overlay"></div>
           <div class="hero-text">
             <h1>The Roundy</h1>
-            <p>Cork's coziest pub.</p>
+            <p>Live Music & Comedy in Cork City</p>
             <div class="hero-buttons">
               <a href="https://cococomedy.club/">Comedy Nights</a>
-              <a href="/events/all">See All Events</a>
+              <a href="https://www.theroundy.com/">See All Events</a>
             </div>
           </div>
         </div>
@@ -243,7 +263,7 @@
     <div class="about-text">
       <h2>Welcome to The Roundy</h2>
       <div class="divider"></div>
-      <p>The Roundy is your go‑to venue for intimate live performances, stand‑up comedy, and cozy vibes. Enjoy craft beers, spritzers, and great coffee — all in a unique heritage-listed building in the heart of Cork City.</p>
+      <p>The Roundy is your go‑to venue for intimate live performances, stand‑up comedy, and late‑night cozy vibes. Enjoy craft beers, spritzers, and great coffee — all in a unique heritage-listed building in the heart of Cork City.</p>
     </div>
   </section>
 
@@ -256,14 +276,14 @@
         <p><a href="/menu">Explore our full food & drinks menu</a></p>
       </div>
       <div>
-        <img src="https://tse1.mm.bing.net/th/id/OIP.9Uvs31lSi-SMPnRaBcPOegHaDt?pid=Api" />
-        <h3>Coco Comedy Club</h3>
-        <p><a href="https://cococomedy.club/">View all upcoming comedy shows</a></p>
+        <a href="https://cococomedy.club/"><img src="https://tse1.mm.bing.net/th/id/OIP.9Uvs31lSi-SMPnRaBcPOegHaDt?pid=Api"></a>
+        <h3><a href="https://cococomedy.club/">Coco Comedy Club</a></h3>
+<p><a href="/events/comedy">View all upcoming comedy shows</a></p>
       </div>
       <div>
-        <img src="https://tse2.mm.bing.net/th/id/OIP.HFCQCjPM0f_rqWzcznna3AHaJO?pid=Api" />
-        <h3>Live Music & More</h3>
-        <p><a href="/events/live">See our latest music & arts events</a></p>
+        <a href="https://www.theroundy.com/"><img src="https://tse2.mm.bing.net/th/id/OIP.HFCQCjPM0f_rqWzcznna3AHaJO?pid=Api"></a>
+        <h3><a href="https://www.theroundy.com/">Live Music &amp; More</a></h3>
+<p><a href="/events/live">See our latest music & arts events</a></p>
       </div>
     </div>
   </section>
@@ -298,7 +318,7 @@
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
-    <p style="text-align:center;">© The Roundy, Cork City - Website by Daniel Lukas</p>
+    <p style="text-align:center; color:#fdf9f4;">© The Roundy, Cork City</p>
   </footer>
 
   <!-- Swiper JS -->
