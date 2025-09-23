@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Roundy — Live Comedy & Music | Cork City</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Roundy: Café by day, pub & live venue by night. Enjoy comedy, music, craft beers & spritzers in Cork City." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet" />
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <style>
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      background: #fdf9f4;
+      color: #2c2a28;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://www.transparenttextures.com/patterns/linen.png') repeat;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    /* Hero */
+    .hero-carousel {
+      height: 100vh;
+      position: relative;
+    }
+
+    .swiper, .swiper-wrapper, .swiper-slide {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      z-index: 10;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-buttons a {
+      display: inline-block;
+      background-color: #8B5E3C;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .hero-buttons a:hover {
+      background-color: #a0765a;
+    }
+
+    /* About */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+      background: #fff;
+    }
+
+    .about img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .about-text {
+      flex: 1 1 400px;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      color: #8B5E3C;
+      margin-bottom: 10px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: #8B5E3C;
+      margin: 10px 0 20px;
+    }
+
+    /* Three Columns */
+    .three-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+    }
+
+    .three-columns > div {
+      flex: 1 1 300px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .three-columns img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .three-columns h3 {
+      font-size: 1.4rem;
+      color: #8B5E3C;
+      margin-bottom: 10px;
+    }
+
+    /* Gallery */
+    .gallery h2 {
+      color: #8B5E3C;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      filter: sepia(0.2) contrast(1.05);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Footer / Map */
+    footer {
+      background: #2c2a28;
+      padding: 40px 20px;
+      color: #fdf9f4;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 { font-size: 2.2rem; }
+      .hero-text p { font-size: 1rem; }
+      .three-columns { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero-carousel">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url('https://tse3.mm.bing.net/th/id/OIP.zgLp9nTBxK1n6TGIIu9yIAHaHa?pid=Api');">
+          <div class="slide-overlay"></div>
+          <div class="hero-text">
+            <h1>The Roundy</h1>
+            <p>Cork's coziest pub.</p>
+            <div class="hero-buttons">
+              <a href="https://cococomedy.club/">Comedy Nights</a>
+              <a href="/events/all">See All Events</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section class="about container">
+    <img src="https://tse1.mm.bing.net/th/id/OIP.33GVFi-kb4zUG-YUSboX2gHaE0?pid=Api" alt="The Roundy Outside" />
+    <div class="about-text">
+      <h2>Welcome to The Roundy</h2>
+      <div class="divider"></div>
+      <p>The Roundy is your go‑to venue for intimate live performances, stand‑up comedy, and cozy vibes. Enjoy craft beers, spritzers, and great coffee — all in a unique heritage-listed building in the heart of Cork City.</p>
+    </div>
+  </section>
+
+  <!-- Three Column Section -->
+  <section class="container">
+    <div class="three-columns">
+      <div>
+        <img src="https://tse3.mm.bing.net/th/id/OIP.y7Oe3-E4U4uYl43hKod59gHaE4?pid=Api" />
+        <h3>Menu</h3>
+        <p><a href="/menu">Explore our full food & drinks menu</a></p>
+      </div>
+      <div>
+        <img src="https://tse1.mm.bing.net/th/id/OIP.9Uvs31lSi-SMPnRaBcPOegHaDt?pid=Api" />
+        <h3>Coco Comedy Club</h3>
+        <p><a href="https://cococomedy.club/">View all upcoming comedy shows</a></p>
+      </div>
+      <div>
+        <img src="https://tse2.mm.bing.net/th/id/OIP.HFCQCjPM0f_rqWzcznna3AHaJO?pid=Api" />
+        <h3>Live Music & More</h3>
+        <p><a href="/events/live">See our latest music & arts events</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery container">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.z5UJJ9wjRtV-GvaObfwowQHaHa?pid=Api" />
+      <img src="https://tse1.mm.bing.net/th/id/OIP.jpRGQ8G24uWHj1forkyoIwHaFS?pid=Api" />
+      <img src="https://tse3.mm.bing.net/th/id/OIP.o1tGZ6dkaRWY4ox1aCuOUwHaFV?pid=Api" />
+      <img src="https://tse1.mm.bing.net/th/id/OIP.CmeVoDbs8k3SQZkhnUWWZAHaFQ?pid=Api" />
+      <img src="https://tse3.mm.bing.net/th/id/OIP.y7Oe3-E4U4uYl43hKod59gHaE4?pid=Api" />
+      <img src="https://tse4.mm.bing.net/th/id/OIP.opPv8MCzIQcfXCDx2Ifv5wHaFj?pid=Api" />
+      <img src="https://tse1.mm.bing.net/th/id/OIP.33GVFi-kb4zUG-YUSboX2gHaE0?pid=Api" />
+      <img src="https://tse3.mm.bing.net/th/id/OIP.zgLp9nTBxK1n6TGIIu9yIAHaHa?pid=Api" />
+      <img src="https://tse1.mm.bing.net/th/id/OIP.9Uvs31lSi-SMPnRaBcPOegHaDt?pid=Api" />
+      <img src="https://tse2.mm.bing.net/th/id/OIP.HFCQCjPM0f_rqWzcznna3AHaJO?pid=Api" />
+    </div>
+  </section>
+
+  <!-- Footer with Map -->
+  <footer>
+    <div class="map-container" style="margin-bottom: 20px;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2461.2458721253825!2d-8.4772185!3d51.8983475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48449016ee5d5635%3A0x801dc59e6e0e81b3!2sThe%20Roundy!5e0!3m2!1sen!2sie!4v1695476573265!5m2!1sen!2sie"
+        width="100%"
+        height="300"
+        style="border:0; border-radius:10px;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    <p style="text-align:center;">© The Roundy, Cork City - Website by Daniel Lukas</p>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: { delay: 5000 },
+      effect: 'fade',
+      speed: 1000
+    });
+  </script>
+</body>
+</html>
