@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Roundy — Drinks Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #111;
+      color: #fff;
+    }
+
+    .bar-photo-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .bar-photo {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid #fff;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 5;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.2);
+    }
+
+    /* Taps */
+    .tap1 { top: 20%; left: 10%; }
+    .tap2 { top: 20%; left: 22%; }
+    .tap3 { top: 20%; left: 34%; }
+    .tap4 { top: 20%; left: 46%; }
+    .tap5 { top: 20%; left: 58%; }
+    .tap6 { top: 20%; left: 70%; }
+    .tap7 { top: 20%; left: 82%; }
+    .tap8 { top: 20%; left: 94%; }
+
+    /* Mixed Drinks (centered vertically) */
+    .mixed1 { top: 45%; left: 35%; }
+    .mixed2 { top: 45%; left: 45%; }
+    .mixed3 { top: 45%; left: 55%; }
+    .mixed4 { top: 45%; left: 65%; }
+
+    /* Menu Buttons */
+    .menu-button {
+      position: absolute;
+      top: 58%;
+      width: 100px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      background: #8B5E3C;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+
+    .spritz  { left: 35%; }
+    .wine    { left: 45%; }
+    .coffee  { left: 55%; }
+    .snacks  { left: 65%; }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: #fff;
+      color: #000;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal h2 {
+      margin-bottom: 10px;
+      color: #8B5E3C;
+    }
+
+    .modal p {
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bar-photo-container">
+  <img src="https://www.irishexaminer.com/cms_media/module_img/4688/2344088_9_org_The_Roundy_2C_1_Castle_Street_2C_Cork_City_281_29_281_29.jpg" alt="Bar Photo" class="bar-photo" />
+
+  <!-- Taps -->
+  <div class="hotspot tap1" data-drink="tap1"></div>
+  <div class="hotspot tap2" data-drink="tap2"></div>
+  <div class="hotspot tap3" data-drink="tap3"></div>
+  <div class="hotspot tap4" data-drink="tap4"></div>
+  <div class="hotspot tap5" data-drink="tap5"></div>
+  <div class="hotspot tap6" data-drink="tap6"></div>
+  <div class="hotspot tap7" data-drink="tap7"></div>
+  <div class="hotspot tap8" data-drink="tap8"></div>
+
+  <!-- Mixed Drinks -->
+  <div class="hotspot mixed1" data-drink="mixed1"></div>
+  <div class="hotspot mixed2" data-drink="mixed2"></div>
+  <div class="hotspot mixed3" data-drink="mixed3"></div>
+  <div class="hotspot mixed4" data-drink="mixed4"></div>
+
+  <!-- Menu Buttons -->
+  <div class="menu-button spritz" data-drink="spritz">Spritz</div>
+  <div class="menu-button wine" data-drink="wine">Wine</div>
+  <div class="menu-button coffee" data-drink="coffee">Coffee</div>
+  <div class="menu-button snacks" data-drink="snacks">Snacks</div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="drinkModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <h2 id="drinkTitle">Drink Name</h2>
+    <p id="drinkDesc">Drink Description</p>
+    <strong id="drinkPrice">€0.00</strong>
+  </div>
+</div>
+
+<script>
+  const drinkData = {
+    tap1: { title: 'Guinness', desc: 'Rich Irish stout with a creamy head.', price: '€5.50' },
+    tap2: { title: 'Heineken', desc: 'Dutch lager, clean and crisp.', price: '€5.20' },
+    tap3: { title: 'Beamish', desc: 'Cork’s finest stout — bold and roasty.', price: '€5.00' },
+    tap4: { title: 'Hop House 13', desc: 'Lager with hoppy character from Guinness.', price: '€5.30' },
+    tap5: { title: 'Birra Moretti', desc: 'Italian lager, lightly bitter.', price: '€5.50' },
+    tap6: { title: 'Rockshore', desc: 'Light and refreshing Irish lager.', price: '€5.10' },
+    tap7: { title: 'Carlsberg', desc: 'Classic Danish lager.', price: '€5.00' },
+    tap8: { title: 'Orchard Thieves', desc: 'Crisp Irish cider.', price: '€5.20' },
+
+    mixed1: { title: 'Gin & Tonic', desc: 'Choice of gin with Schweppes tonic.', price: '€6.50' },
+    mixed2: { title: 'Vodka & Coke', desc: 'Premium vodka with Coca-Cola.', price: '€6.50' },
+    mixed3: { title: 'Rum & Coke', desc: 'Dark rum with cola and lime.', price: '€6.50' },
+    mixed4: { title: 'Whiskey & Ginger', desc: 'Irish whiskey with ginger ale.', price: '€6.50' },
+
+    spritz: { title: 'Spritz Menu', desc: 'Aperol, Limoncello, and Elderflower Spritz options available.', price: '€8.50–€9.00' },
+    wine:   { title: 'Wine List', desc: 'Red, white, rosé, and prosecco available by glass & bottle.', price: 'Glass from €6.00' },
+    coffee: { title: 'Coffee Menu', desc: 'Espresso, Americano, Flat White, and more.', price: 'From €3.00' },
+    snacks: { title: 'Bar Snacks', desc: 'Crisps, nuts, olives, cheese board.', price: '€2.50–€10.00' }
+  };
+
+  document.querySelectorAll('[data-drink]').forEach(el => {
+    el.addEventListener('click', () => {
+      const key = el.dataset.drink;
+      const info = drinkData[key];
+
+      document.getElementById('drinkTitle').textContent = info.title;
+      document.getElementById('drinkDesc').textContent = info.desc;
+      document.getElementById('drinkPrice').textContent = info.price;
+
+      const modal = document.getElementById('drinkModal');
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('show'), 10);
+    });
+  });
+
+  function closeModal() {
+    const modal = document.getElementById('drinkModal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+  }
+
+  window.addEventListener('click', e => {
+    const modal = document.getElementById('drinkModal');
+    if (e.target === modal) closeModal();
+  });
+</script>
+
+</body>
+</html>
