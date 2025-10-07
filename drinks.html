@@ -10,6 +10,7 @@
       font-family: 'Roboto', sans-serif;
       background: #111;
       color: #fff;
+      overflow-x: hidden;
     }
 
     .bar-photo-container {
@@ -25,20 +26,22 @@
       display: block;
     }
 
-    .hotspot {
+    .hotspot,
+    .menu-button {
       position: absolute;
-      width: 40px;
-      height: 40px;
       border-radius: 50%;
       background: rgba(255,255,255,0.2);
       border: 2px solid #fff;
       cursor: pointer;
       transition: transform 0.2s ease;
       z-index: 5;
+      width: 40px;
+      height: 40px;
     }
 
-    .hotspot:hover {
-      transform: scale(1.2);
+    .hotspot:hover,
+    .menu-button:hover {
+      transform: scale(1.1);
     }
 
     /* Taps */
@@ -51,40 +54,38 @@
     .tap7 { top: 20%; left: 82%; }
     .tap8 { top: 20%; left: 94%; }
 
-    /* Mixed Drinks (centered vertically) */
+    /* Mixed Drinks */
     .mixed1 { top: 45%; left: 35%; }
     .mixed2 { top: 45%; left: 45%; }
     .mixed3 { top: 45%; left: 55%; }
     .mixed4 { top: 45%; left: 65%; }
 
-    /* Menu Buttons */
+    /* Buttons */
     .menu-button {
       position: absolute;
-      top: 58%;
       width: 100px;
       height: 40px;
-      text-align: center;
+      border-radius: 5px;
       line-height: 40px;
       background: #8B5E3C;
       color: #fff;
       font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
+      text-align: center;
       transform: translateX(-50%);
-      z-index: 5;
     }
 
-    .spritz  { left: 35%; }
-    .wine    { left: 45%; }
-    .coffee  { left: 55%; }
-    .snacks  { left: 65%; }
+    .spritz  { top: 58%; left: 35%; }
+    .wine    { top: 58%; left: 45%; }
+    .coffee  { top: 58%; left: 55%; }
+    .snacks  { top: 58%; left: 65%; }
 
     /* Modal Styles */
     .modal {
       display: none;
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.8);
       justify-content: center;
       align-items: center;
@@ -92,7 +93,7 @@
       transform: scale(0.9);
       transition: opacity 0.3s ease, transform 0.3s ease;
       pointer-events: none;
-      z-index: 10;
+      z-index: 100;
     }
 
     .modal.show {
@@ -114,8 +115,8 @@
     }
 
     .modal h2 {
-      margin-bottom: 10px;
       color: #8B5E3C;
+      margin-bottom: 10px;
     }
 
     .modal p {
@@ -131,12 +132,51 @@
       font-size: 24px;
       cursor: pointer;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hotspot,
+      .menu-button {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+        line-height: 30px;
+      }
+
+      .menu-button {
+        width: 90px;
+        font-size: 0.85rem;
+      }
+
+      .tap1 { top: 18%; left: 15%; }
+      .tap2 { top: 18%; left: 30%; }
+      .tap3 { top: 18%; left: 45%; }
+      .tap4 { top: 18%; left: 60%; }
+      .tap5 { top: 18%; left: 75%; }
+      .tap6 { top: 25%; left: 25%; }
+      .tap7 { top: 25%; left: 50%; }
+      .tap8 { top: 25%; left: 75%; }
+
+      .mixed1 { top: 45%; left: 25%; }
+      .mixed2 { top: 45%; left: 40%; }
+      .mixed3 { top: 45%; left: 60%; }
+      .mixed4 { top: 45%; left: 75%; }
+
+      .spritz  { top: 58%; left: 30%; }
+      .wine    { top: 58%; left: 45%; }
+      .coffee  { top: 58%; left: 60%; }
+      .snacks  { top: 58%; left: 75%; }
+    }
   </style>
 </head>
 <body>
 
 <div class="bar-photo-container">
-  <img src="https://www.irishexaminer.com/cms_media/module_img/4688/2344088_9_org_The_Roundy_2C_1_Castle_Street_2C_Cork_City_281_29_281_29.jpg" alt="Bar Photo" class="bar-photo" />
+  <img
+    src="https://www.irishexaminer.com/cms_media/module_img/4688/2344088_9_org_The_Roundy_2C_1_Castle_Street_2C_Cork_City_281_29_281_29.jpg"
+    alt="Bar Photo"
+    class="bar-photo"
+  />
 
   <!-- Taps -->
   <div class="hotspot tap1" data-drink="tap1"></div>
@@ -188,7 +228,7 @@
     mixed4: { title: 'Whiskey & Ginger', desc: 'Irish whiskey with ginger ale.', price: '€6.50' },
 
     spritz: { title: 'Spritz Menu', desc: 'Aperol, Limoncello, and Elderflower Spritz options available.', price: '€8.50–€9.00' },
-    wine:   { title: 'Wine List', desc: 'Red, white, rosé, and prosecco available by glass & bottle.', price: 'Glass from €6.00' },
+    wine: { title: 'Wine List', desc: 'Red, white, rosé, and prosecco available by glass & bottle.', price: 'Glass from €6.00' },
     coffee: { title: 'Coffee Menu', desc: 'Espresso, Americano, Flat White, and more.', price: 'From €3.00' },
     snacks: { title: 'Bar Snacks', desc: 'Crisps, nuts, olives, cheese board.', price: '€2.50–€10.00' }
   };
@@ -211,9 +251,7 @@
   function closeModal() {
     const modal = document.getElementById('drinkModal');
     modal.classList.remove('show');
-    setTimeout(() => {
-      modal.style.display = 'none';
-    }, 300);
+    setTimeout(() => { modal.style.display = 'none'; }, 300);
   }
 
   window.addEventListener('click', e => {
